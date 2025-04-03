@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS `game_db`;
+USE `game_db`;
+
+CREATE TABLE IF NOT EXISTS `rankings` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `nickname` VARCHAR(50) NOT NULL,
+    `score` INT NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+); 

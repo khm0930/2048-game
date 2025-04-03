@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>2048 게임</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>2048</h1>
+            <div class="score-container">
+                <span class="score-label">점수:</span>
+                <span id="score">0</span>
+                <button id="showRankings" class="ranking-btn">랭킹 보기</button>
+            </div>
+        </div>
+        
+        <div class="game-intro">
+            <p class="desktop-instruction">방향키를 사용하여 타일을 움직이세요!</p>
+            <p class="mobile-instruction">화면을 슬라이드하여 타일을 움직이세요!</p>
+            <p>같은 숫자의 타일이 만나면 합쳐집니다.</p>
+        </div>
+
+        <div class="game-container">
+            <div class="grid-container" id="grid-container"></div>
+        </div>
+
+        <!-- 게임 오버 모달 -->
+        <div id="gameOverModal" class="modal">
+            <div class="modal-content">
+                <h2>게임 오버!</h2>
+                <p>최종 점수: <span id="finalScore">0</span></p>
+                <input type="text" id="nickname" placeholder="닉네임을 입력하세요" maxlength="50">
+                <button id="submitScore">점수 등록</button>
+                <button id="restartGame">다시하기</button>
+            </div>
+        </div>
+
+        <!-- 랭킹 모달 -->
+        <div id="rankingsModal" class="modal">
+            <div class="modal-content">
+                <h2>랭킹</h2>
+                <div id="rankingsList"></div>
+                <button id="closeRankings">닫기</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

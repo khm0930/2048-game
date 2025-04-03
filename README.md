@@ -1,62 +1,101 @@
-# 2048 웹 게임
+# 2048 Game with Ranking System
 
-2048 게임의 웹 버전입니다. PC와 모바일 모두에서 즐길 수 있습니다.
+브라우저에서 즐길 수 있는 2048 게임입니다. 랭킹 시스템이 포함되어 있어 다른 플레이어들과 점수를 비교할 수 있습니다.
 
-## 게임 방법
+## 기능
 
-### PC에서 플레이
-- 방향키(←, →, ↑, ↓)를 사용하여 타일을 움직입니다
-- 같은 숫자의 타일이 만나면 합쳐집니다
-- 2048을 만드는 것이 목표입니다
-
-### 모바일에서 플레이
-- 화면을 슬라이드하여 타일을 움직입니다
-  - 왼쪽으로 슬라이드 → 타일이 왼쪽으로 이동
-  - 오른쪽으로 슬라이드 → 타일이 오른쪽으로 이동
-  - 위로 슬라이드 → 타일이 위로 이동
-  - 아래로 슬라이드 → 타일이 아래로 이동
-
-## 게임 특징
-- 반응형 디자인: 모든 화면 크기에 최적화
-- 터치 스크린 지원: 모바일 기기에서 완벽하게 작동
-- 점수 시스템: 현재 점수와 최고 점수 기록
-- 로컬 저장: 최고 점수가 브라우저에 저장됨
-
-## 플레이 방법
-1. 웹 브라우저에서 [게임 링크](https://khm0930.github.io/2048-game/)에 접속
-2. PC에서는 방향키로, 모바일에서는 화면을 슬라이드하여 플레이
-3. 더 이상 움직일 수 없으면 게임 오버
-4. '다시하기' 버튼을 눌러 새 게임 시작
+- 클래식한 2048 게임플레이
+- 키보드 및 터치스크린 지원
+- 실시간 점수 표시
+- 게임 오버 시 랭킹 등록
+- 상위 10개 랭킹 조회
 
 ## 기술 스택
-- HTML5
-- CSS3
-- JavaScript (ES6+)
 
-## 지원 브라우저
-- Chrome (권장)
-- Firefox
-- Safari
-- Edge
-- 모바일 브라우저
+- Frontend: HTML, CSS, JavaScript
+- Backend: Node.js, Express
+- Database: MySQL (AWS RDS)
 
 ## 설치 방법
 
-1. Python 3.7 이상이 설치되어 있어야 합니다.
-2. 필요한 패키지를 설치합니다:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## 실행 방법
-
+1. 저장소를 클론합니다:
 ```bash
-python game.py
+git clone https://github.com/your-username/2048-game.git
+cd 2048-game
 ```
 
-## 조작 방법
+2. 필요한 패키지를 설치합니다:
+```bash
+npm install
+```
 
-- ↑: 위로 이동
-- ↓: 아래로 이동
-- ←: 왼쪽으로 이동
-- →: 오른쪽으로 이동 
+3. 환경 변수를 설정합니다:
+```bash
+cp .env.example .env
+```
+`.env` 파일을 열어 실제 데이터베이스 정보를 입력합니다.
+
+4. 데이터베이스를 설정합니다:
+- MySQL 클라이언트에 접속합니다
+- `db_setup.sql` 파일의 내용을 실행합니다
+
+5. 서버를 실행합니다:
+```bash
+npm start
+```
+
+6. 브라우저에서 `http://localhost:3000`으로 접속합니다.
+
+## 배포 방법
+
+### AWS EC2 배포
+
+1. EC2 인스턴스를 생성합니다.
+
+2. 보안 그룹 설정:
+   - 인바운드 규칙에 TCP 3000 포트 추가
+   - RDS 보안 그룹에서 EC2 인스턴스 접근 허용
+
+3. EC2 인스턴스에 접속:
+```bash
+ssh -i your-key.pem ec2-user@your-ec2-ip
+```
+
+4. Node.js 설치:
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm install 16
+```
+
+5. 프로젝트 클론 및 설정:
+```bash
+git clone https://github.com/your-username/2048-game.git
+cd 2048-game
+npm install
+cp .env.example .env
+# .env 파일 수정
+```
+
+6. PM2로 서버 실행:
+```bash
+npm install -g pm2
+pm2 start server.js
+pm2 startup
+```
+
+### 도메인 설정 (선택사항)
+
+1. Route 53에서 도메인 설정
+2. Nginx 설치 및 리버스 프록시 설정
+3. SSL 인증서 설정 (Let's Encrypt)
+
+## 주의사항
+
+- `.env` 파일은 절대 GitHub에 커밋하지 마세요!
+- 실제 배포 시에는 보안 설정을 꼭 확인하세요.
+- RDS 접근 권한을 적절히 설정하세요.
+
+## 라이선스
+
+MIT License 
