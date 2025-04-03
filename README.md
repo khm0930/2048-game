@@ -44,7 +44,7 @@ cp .env.example .env
 npm start
 ```
 
-6. 브라우저에서 `http://localhost:3000`으로 접속합니다.
+6. 브라우저에서 `http://3.37.128.68/`으로 접속합니다.
 
 ## 배포 방법
 
