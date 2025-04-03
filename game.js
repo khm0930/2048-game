@@ -10,6 +10,10 @@ class Game2048 {
         this.gameMessage = document.querySelector('.game-message');
         this.retryButton = document.querySelector('.retry-button');
         
+        // 터치 이벤트를 위한 변수들
+        this.touchStartX = null;
+        this.touchStartY = null;
+        
         this.init();
     }
 
@@ -19,8 +23,67 @@ class Game2048 {
         this.addRandomTile();
         this.updateDisplay();
         
+        // 키보드 이벤트
         document.addEventListener('keydown', this.handleKeyPress.bind(this));
         this.retryButton.addEventListener('click', this.restart.bind(this));
+        
+        // 터치 이벤트
+        document.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+        document.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+        document.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+    }
+
+    handleTouchStart(event) {
+        const firstTouch = event.touches[0];
+        this.touchStartX = firstTouch.clientX;
+        this.touchStartY = firstTouch.clientY;
+        event.preventDefault(); // 스크롤 방지
+    }
+
+    handleTouchMove(event) {
+        if (!this.touchStartX || !this.touchStartY) {
+            return;
+        }
+        event.preventDefault(); // 스크롤 방지
+    }
+
+    handleTouchEnd(event) {
+        if (!this.touchStartX || !this.touchStartY) {
+            return;
+        }
+
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - this.touchStartX;
+        const deltaY = touchEndY - this.touchStartY;
+
+        // 최소 스와이프 거리 (픽셀)
+        const minSwipeDistance = 50;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // 수평 스와이프
+            if (Math.abs(deltaX) > minSwipeDistance) {
+                if (deltaX > 0) {
+                    this.move('right');
+                } else {
+                    this.move('left');
+                }
+            }
+        } else {
+            // 수직 스와이프
+            if (Math.abs(deltaY) > minSwipeDistance) {
+                if (deltaY > 0) {
+                    this.move('down');
+                } else {
+                    this.move('up');
+                }
+            }
+        }
+
+        // 터치 좌표 초기화
+        this.touchStartX = null;
+        this.touchStartY = null;
     }
 
     addRandomTile() {
